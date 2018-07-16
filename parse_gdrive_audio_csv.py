@@ -6,6 +6,7 @@ audio_headers = ['id',                     # Required
                  'file_name',              # Required
                  'file_format',            # Required
                  'date',                   # Required
+                 'year',                   # Required
                  'meeting_type',           # Required
                  'message_type',           # Required
                  'message_series',         # Required
@@ -39,13 +40,19 @@ with open(gdrive_audio_list_path, newline='') as csvfile:
         
         # Parsing date into YYYY-MM-DD for Jekyll
         date = file_desc[0][0:4] + '-' + file_desc[0][4:6] + '-' + file_desc[0][6:]
-        
+        year = file_desc[0][0:4]
         # Creating the downloadable link for shared files
         message_url = 'https://drive.google.com/file/d/' + row['Id']
         
         meeting_type = file_desc[1]
         message_type = file_desc[2]
-        message_series = file_desc[3]
+        
+        # Have to add a '0' for message_series because I cannot figure out how
+        # to have Liquid sort message_series as an integer (sorts as a string)
+        if len(file_desc[3]) < 2:
+            message_series = "0" + file_desc[3]
+        else:
+            message_series = file_desc[3]
         message_theme = ''
         message_desc = ''
         
@@ -67,6 +74,7 @@ with open(gdrive_audio_list_path, newline='') as csvfile:
                           file_name,
                           file_format,
                           date, 
+                          year,
                           meeting_type, 
                           message_type, 
                           message_series, 
