@@ -4,7 +4,7 @@ import re
 audio_headers = ['id',                     # Required 
                  'url',                    # Required
                  'file_name',              # Required
-                 'file_forma',             # Required
+                 'file_format',            # Required
                  'date',                   # Required
                  'meeting_type',           # Required
                  'message_type',           # Required
@@ -63,15 +63,15 @@ with open(gdrive_audio_list_path, newline='') as csvfile:
         
         # Creating our list
         audio_data.append([row['Id'],
-                         message_url,
-                         file_name,
-                         file_format,
-                         date, 
-                         meeting_type, 
-                         message_type, 
-                         message_series, 
-                         message_theme, 
-                         message_desc])
+                          message_url,
+                          file_name,
+                          file_format,
+                          date, 
+                          meeting_type, 
+                          message_type, 
+                          message_series, 
+                          message_theme, 
+                          message_desc])
 
 # Going to write out the processed gdrive data
 path = "./jekyll_audio_list.csv"
