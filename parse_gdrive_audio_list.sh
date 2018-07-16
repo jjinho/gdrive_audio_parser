@@ -11,4 +11,4 @@
 python3 parse_gdrive_audio_csv.py
 
 # Copy these files to 'flushinggospelhall/_data'
-#cp ./jekyll_audio_list.csv ../flushinggospelhall.org/_data
+cp jekyll_audio_list.csv ../flushinggospelhall.org/_data/
