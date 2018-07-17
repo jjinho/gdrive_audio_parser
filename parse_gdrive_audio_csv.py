@@ -45,14 +45,23 @@ with open(gdrive_audio_list_path, newline='') as csvfile:
         message_url = 'https://drive.google.com/file/d/' + row['Id']
         
         meeting_type = file_desc[1]
+        
         message_type = file_desc[2]
         
         # Have to add a '0' for message_series because I cannot figure out how
         # to have Liquid sort message_series as an integer (sorts as a string)
         if len(file_desc[3]) < 2:
-            message_series = "0" + file_desc[3]
+            message_series = '0' + file_desc[3]
         else:
-            message_series = file_desc[3]
+            if '-' in file_desc[3]:
+                series = file_desc[3].split('-')
+                if len(series[0]) < 2:
+                    series[0] = '0' + series[0]
+                if len(series[1]) < 2:
+                    series[1] = '0' + series[1]
+                message_series = series[0] + '-' + series[1]
+            else:
+                message_series = file_desc[3]
         message_theme = ''
         message_desc = ''
         
@@ -80,6 +89,9 @@ with open(gdrive_audio_list_path, newline='') as csvfile:
                           message_series, 
                           message_theme, 
                           message_desc])
+
+# Sorting by year meeting_type, message_type
+audio_data = sorted(audio_data, key = lambda x: (x[5], x[6], x[7]))
 
 # Going to write out the processed gdrive data
 path = "./jekyll_audio_list.csv"
