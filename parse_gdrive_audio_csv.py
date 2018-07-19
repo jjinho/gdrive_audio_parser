@@ -94,7 +94,7 @@ with open(gdrive_audio_list_path, newline='') as csvfile:
 audio_data = sorted(audio_data, key = lambda x: (x[5], x[6], x[7]))
 
 # Going to write out the processed gdrive data
-path = "./jekyll_audio_list.csv"
+path = "./fgh_audio_list.csv"
 with open(path, 'w') as csvfile:
     writer = csv.writer(csvfile, delimiter=",")
     writer.writerow(audio_headers)
